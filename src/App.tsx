@@ -1,0 +1,42 @@
+import { useCallback, useState } from 'react'
+import { useSmoothScroll } from './hooks/useSmoothScroll'
+import Aurora from './components/Aurora'
+import Preloader from './components/Preloader'
+import Cursor from './components/Cursor'
+import Nav from './components/Nav'
+import Hero from './components/Hero'
+import Marquee from './components/Marquee'
+import About from './components/About'
+import Career from './components/Career'
+import Projects from './components/Projects'
+import Skills from './components/Skills'
+import Contact from './components/Contact'
+import Footer from './components/Footer'
+
+export default function App() {
+  const [ready, setReady] = useState(false)
+  const onDone = useCallback(() => setReady(true), [])
+
+  useSmoothScroll()
+
+  return (
+    <>
+      <Aurora />
+      <Preloader onDone={onDone} />
+      <Cursor />
+      <Nav />
+
+      <main>
+        <Hero ready={ready} />
+        <Marquee />
+        <About />
+        <Career />
+        <Projects />
+        <Skills />
+        <Contact />
+      </main>
+
+      <Footer />
+    </>
+  )
+}
