@@ -1,5 +1,10 @@
 import { profile } from '../data/content'
-import RollText from './RollText'
+
+const links = [
+  { label: 'About', href: '#about' },
+  { label: 'Work', href: '#work' },
+  { label: 'Contact', href: '#contact' },
+]
 
 export default function Footer() {
   return (
@@ -8,12 +13,20 @@ export default function Footer() {
 
       <div className="shell footer__inner">
         <a className="footer__brand" href="#top">
-          <RollText text="shivam.dev" />
+          shivam.dev
         </a>
 
         <a className="footer__mail" href={`mailto:${profile.email}`}>
-          <RollText text={profile.email} />
+          {profile.email}
         </a>
+
+        <nav className="footer__links" aria-label="Footer">
+          {links.map((l) => (
+            <a className="footer__navlink" href={l.href} key={l.href}>
+              {l.label}
+            </a>
+          ))}
+        </nav>
       </div>
 
       <div className="shell footer__meta">
