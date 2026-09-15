@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
+import Aurora from './components/Aurora'
 import Preloader from './components/Preloader'
 import Cursor from './components/Cursor'
 import Nav from './components/Nav'
@@ -19,6 +20,7 @@ export default function App() {
 
   return (
     <>
+      <Aurora />
       <Preloader onDone={onDone} />
       <Cursor />
       <Nav />

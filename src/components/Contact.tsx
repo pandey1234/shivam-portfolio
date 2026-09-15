@@ -4,7 +4,7 @@ import { profile } from '../data/content'
 export default function Contact() {
   return (
     <Section id="contact" num="05" title="Contact">
-      <div data-reveal>
+      <div className="contact__panel" data-reveal>
         <h3 className="contact__title">Got something worth building?</h3>
 
         <a className="contact__mail" href={`mailto:${profile.email}`}>
