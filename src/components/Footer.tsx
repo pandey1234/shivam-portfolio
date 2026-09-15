@@ -1,5 +1,3 @@
-import { profile } from '../data/content'
-
 const links = [
   { label: 'About', href: '#about' },
   { label: 'Work', href: '#work' },
@@ -14,10 +12,6 @@ export default function Footer() {
       <div className="shell footer__inner">
         <a className="footer__brand" href="#top">
           shivam.dev
-        </a>
-
-        <a className="footer__mail" href={`mailto:${profile.email}`}>
-          {profile.email}
         </a>
 
         <nav className="footer__links" aria-label="Footer">

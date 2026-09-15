@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import ThemeToggle from './ThemeToggle'
+import { profile } from '../data/content'
 
 const links = [
   { label: 'About', href: '#about' },
@@ -33,6 +34,10 @@ export default function Nav() {
       <div className="shell nav__inner">
         <a href="#top" className="nav__mark">
           shivam<span>.</span>dev
+        </a>
+
+        <a className="nav__mail" href={`mailto:${profile.email}`}>
+          {profile.email}
         </a>
 
         <div className="nav__right">
