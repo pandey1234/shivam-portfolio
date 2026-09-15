@@ -14,33 +14,41 @@ export const profile = {
 export type Experience = {
   company: string
   role: string
+  /** Short marker shown on the timeline rail. */
+  year: string
   period: string
   location: string
   current?: boolean
+  /** One-paragraph summary for the timeline. */
+  summary: string
   points: string[]
   stack: string[]
 }
 
+/** Oldest first — the timeline reads top to bottom, earliest to now. */
 export const experience: Experience[] = [
   {
-    company: 'EPIC Investment Partners',
-    role: 'Backend Developer',
-    period: 'Jun 2025 — Present',
-    location: 'On-site',
-    current: true,
+    company: 'Darx Technology',
+    role: 'Backend Developer Intern',
+    year: '2023',
+    period: 'Apr 2023 — Sep 2023',
+    location: 'Noida, U.P.',
+    summary:
+      'Rebuilt the Darx University site as a dynamic, responsive platform — engagement up 40%, bounce rate down 25% — and delivered full CRUD operations and database architecture for an e-commerce build.',
     points: [
-      'Built Role-Based Access Control (RBAC) with granular security, role and permission management across internal applications.',
-      'Developed centralised authentication microservices handling login and 2FA, enabling single secure sign-on across multiple internal products.',
-      'Shipped a multi-tenant ticketing system that automates email-to-ticket workflows — create, track, resolve and respond to customer requests.',
-      'Designed backend services on a multi-tenant architecture, guaranteeing data isolation and scalable workflows across client organisations.',
+      'Rebuilt the Darx University website as a dynamic, responsive platform — a 40% lift in user engagement and 25% drop in bounce rate.',
+      'Delivered full CRUD operations and database architecture for an e-commerce platform.',
     ],
-    stack: ['Microservices', 'RBAC', '2FA', 'Multi-tenancy', 'REST APIs'],
+    stack: ['PHP', 'MySQL', 'PhpMyAdmin', 'JavaScript'],
   },
   {
     company: 'Datacorn Service LLP',
     role: 'Junior Developer',
+    year: '2024',
     period: 'Jul 2024 — May 2025',
     location: 'Remote',
+    summary:
+      'Closed 100+ bugs and shipped features across a Laravel platform — cart flows, PowerGrid data tables, advanced search — while implementing the multi-tenant layer that lets SuperAdmins manage organisations and Admins govern their own.',
     points: [
       'Resolved 100+ bugs and shipped new features including a full "Add to Cart" flow and enhanced data tables with Livewire PowerGrid.',
       'Implemented multi-tenant architecture letting SuperAdmins manage organisations while Admins govern their own.',
@@ -49,15 +57,21 @@ export const experience: Experience[] = [
     stack: ['Laravel', 'Livewire', 'PowerGrid', 'MySQL', 'JavaScript'],
   },
   {
-    company: 'Darx Technology',
-    role: 'Backend Developer Intern',
-    period: 'Apr 2023 — Sep 2023',
-    location: 'Noida, U.P.',
+    company: 'EPIC Investment Partners',
+    role: 'Backend Developer',
+    year: 'NOW',
+    period: 'Jun 2025 — Present',
+    location: 'On-site',
+    current: true,
+    summary:
+      'Building the internal platform: centralised authentication microservices with login and 2FA across products, a granular RBAC layer, and a multi-tenant ticketing system that turns inbound email into tracked, resolvable work — all on an architecture that guarantees data isolation between client organisations.',
     points: [
-      'Rebuilt the Darx University website as a dynamic, responsive platform — a 40% lift in user engagement and 25% drop in bounce rate.',
-      'Delivered full CRUD operations and database architecture for an e-commerce platform.',
+      'Built Role-Based Access Control (RBAC) with granular security, role and permission management across internal applications.',
+      'Developed centralised authentication microservices handling login and 2FA, enabling single secure sign-on across multiple internal products.',
+      'Shipped a multi-tenant ticketing system that automates email-to-ticket workflows — create, track, resolve and respond to customer requests.',
+      'Designed backend services on a multi-tenant architecture, guaranteeing data isolation and scalable workflows across client organisations.',
     ],
-    stack: ['PHP', 'MySQL', 'PhpMyAdmin', 'JavaScript'],
+    stack: ['Microservices', 'RBAC', '2FA', 'Multi-tenancy', 'REST APIs'],
   },
 ]
 

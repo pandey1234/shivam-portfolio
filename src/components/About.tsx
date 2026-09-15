@@ -1,20 +1,20 @@
 import Section from './Section'
-import { education } from '../data/content'
+import { education, achievements } from '../data/content'
 
 export default function About() {
   return (
-    <Section id="about" num="01" title="About">
+    <Section id="about" num="01" title="About me">
       <div className="about__grid">
         <div data-reveal>
           <p className="about__lead">
             I work on the parts of an application nobody sees — <strong>authentication</strong>,{' '}
             <strong>permissions</strong>, and the <strong>multi-tenant</strong> plumbing that keeps
-            one client's data from ever touching another's.
+            one client&rsquo;s data from ever touching another&rsquo;s.
           </p>
 
           <div className="about__body">
             <p>
-              Right now I'm at EPIC Investment Partners, where I build the internal platform:
+              Right now I&rsquo;m at EPIC Investment Partners, where I build the internal platform:
               centralised auth microservices handling login and 2FA across several products, a
               role-based access control layer with granular permissions, and a ticketing system that
               turns inbound email into tracked, resolvable work.
@@ -28,8 +28,17 @@ export default function About() {
             <p>
               I like problems where correctness matters more than speed: access control, data
               isolation, session handling. The kind of thing that is invisible when it works and
-              catastrophic when it doesn't.
+              catastrophic when it doesn&rsquo;t.
             </p>
+          </div>
+
+          <div className="about__facts">
+            {achievements.map((a) => (
+              <div key={a.label}>
+                <div className="fact__value">{a.value}</div>
+                <div className="fact__label">{a.label}</div>
+              </div>
+            ))}
           </div>
         </div>
 

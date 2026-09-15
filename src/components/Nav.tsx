@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react'
+import ThemeToggle from './ThemeToggle'
 
 const links = [
   { label: 'About', href: '#about' },
-  { label: 'Experience', href: '#experience' },
+  { label: 'Career', href: '#career' },
   { label: 'Work', href: '#work' },
   { label: 'Skills', href: '#skills' },
   { label: 'Contact', href: '#contact' },
@@ -33,13 +34,17 @@ export default function Nav() {
         <a href="#top" className="nav__mark">
           Shivam<span>.</span>
         </a>
-        <nav className="nav__links" aria-label="Primary">
-          {links.map((l) => (
-            <a key={l.href} className="nav__link" href={l.href}>
-              {l.label}
-            </a>
-          ))}
-        </nav>
+
+        <div className="nav__right">
+          <nav className="nav__links" aria-label="Primary">
+            {links.map((l) => (
+              <a key={l.href} className="nav__link" href={l.href}>
+                {l.label}
+              </a>
+            ))}
+          </nav>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   )

@@ -1,46 +1,35 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { profile, achievements } from '../data/content'
-import { splitWords } from '../lib/split'
 import { prefersReducedMotion } from '../lib/motion'
 
 type Props = { ready: boolean }
 
+/**
+ * Name on the left, portrait centred, role on the right — collapsing to a
+ * single centred column below 1000px.
+ */
 export default function Hero({ ready }: Props) {
   const root = useRef<HTMLElement>(null)
-  const title = useRef<HTMLHeadingElement>(null)
   const avatar = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!ready || prefersReducedMotion()) return
 
     const ctx = gsap.context(() => {
-      const lines = title.current?.querySelectorAll<HTMLElement>('.hero__line') ?? []
-      const wordSets = Array.from(lines).map((line) => splitWords(line))
-
       const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
 
       tl.from('.hero__eyebrow', { y: 20, opacity: 0, duration: 0.8 })
-
-      wordSets.forEach((words, i) => {
-        tl.from(
-          words,
-          { yPercent: 115, duration: 1.05, stagger: 0.055 },
-          i === 0 ? '-=0.45' : '-=0.85',
-        )
-      })
-
-      tl.from('.hero__blurb', { y: 24, opacity: 0, duration: 0.9 }, '-=0.6')
-        .from('.hero__facts > *', { y: 24, opacity: 0, duration: 0.8, stagger: 0.09 }, '-=0.65')
         .from(
           '.avatar',
-          { scale: 0.88, opacity: 0, duration: 1.1, ease: 'power3.out' },
-          '-=1.3',
+          { scale: 0.82, opacity: 0, duration: 1.2, ease: 'power3.out' },
+          '-=0.4',
         )
+        .from('.hero__side--left', { x: -46, opacity: 0, duration: 1 }, '-=0.8')
+        .from('.hero__side--right', { x: 46, opacity: 0, duration: 1 }, '<')
         .from('.avatar__chip', { y: 14, opacity: 0, duration: 0.7 }, '-=0.5')
         .from('.hero__scroll', { opacity: 0, duration: 0.8 }, '-=0.5')
 
-      // Content drifts up and fades as you scroll away.
+      // Content drifts up and fades as you scroll toward About.
       gsap.to('.hero__inner', {
         yPercent: -12,
         opacity: 0.2,
@@ -53,12 +42,12 @@ export default function Hero({ ready }: Props) {
         },
       })
 
-      // Avatar tilts very slightly toward the pointer.
+      // Portrait tilts very slightly toward the pointer.
       const onMove = (e: PointerEvent) => {
         const { innerWidth: w, innerHeight: h } = window
         gsap.to(avatar.current, {
-          rotateY: ((e.clientX - w / 2) / w) * 9,
-          rotateX: -((e.clientY - h / 2) / h) * 9,
+          rotateY: ((e.clientX - w / 2) / w) * 10,
+          rotateX: -((e.clientY - h / 2) / h) * 10,
           duration: 0.9,
           ease: 'power3.out',
           transformPerspective: 900,
@@ -78,29 +67,21 @@ export default function Hero({ ready }: Props) {
   return (
     <section className="hero" id="top" ref={root}>
       <div className="shell hero__inner">
-        <div className="hero__layout">
-          <div>
-            <p className="hero__eyebrow">
-              <span className="hero__dot" aria-hidden="true" />
-              Available for opportunities
-            </p>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <p className="hero__eyebrow">
+            <span className="hero__dot" aria-hidden="true" />
+            Available for opportunities
+          </p>
+        </div>
 
-            <h1 className="hero__title" ref={title}>
-              <span className="hero__line">Backend</span>
-              <span className="hero__line hero__line--accent">engineer.</span>
-              <span className="hero__line">Systems first.</span>
+        <div className="hero__stage">
+          <div className="hero__side hero__side--left">
+            <span className="hero__hello">Hello! I&rsquo;m</span>
+            <h1 className="hero__name">
+              Shivam
+              <br />
+              Pandey
             </h1>
-
-            <p className="hero__blurb">{profile.blurb}</p>
-
-            <div className="hero__facts">
-              {achievements.map((a) => (
-                <div key={a.label}>
-                  <div className="fact__value">{a.value}</div>
-                  <div className="fact__label">{a.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
 
           <div className="avatar" ref={avatar}>
@@ -122,6 +103,11 @@ export default function Hero({ ready }: Props) {
               <span className="hero__dot" aria-hidden="true" />
               Ghaziabad, India
             </span>
+          </div>
+
+          <div className="hero__side hero__side--right">
+            <span className="hero__hello">A Backend</span>
+            <p className="hero__role">Developer</p>
           </div>
         </div>
       </div>
