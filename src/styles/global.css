@@ -1165,15 +1165,115 @@ ul { list-style: none; }
 a.contact__val:hover { color: var(--accent); }
 
 /* ============================================================
+   ROLL-OVER TEXT
+   Each character sits in its own mask with two stacked faces; on
+   hover the top face leaves and the second arrives, staggered by
+   index. Line-height is generous so descenders aren't clipped by
+   the mask.
+   ============================================================ */
+.roll {
+  display: inline-flex;
+  flex-wrap: wrap;
+  line-height: 1.4;
+}
+
+.roll__char {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.roll__face {
+  display: block;
+  transition: transform 0.45s var(--ease), color 0.45s var(--ease);
+  transition-delay: calc(var(--i) * 20ms);
+}
+
+.roll__face--in {
+  position: absolute;
+  inset: 0;
+  transform: translateY(102%);
+  color: var(--accent);
+}
+
+.roll:hover .roll__face,
+a:hover > .roll .roll__face,
+a:focus-visible > .roll .roll__face {
+  transform: translateY(-102%);
+}
+
+.roll:hover .roll__face--in,
+a:hover > .roll .roll__face--in,
+a:focus-visible > .roll .roll__face--in {
+  transform: translateY(0);
+}
+
+/* The roll reads as decoration; skip it when motion is reduced. */
+@media (prefers-reduced-motion: reduce) {
+  .roll__face--in { display: none; }
+  .roll:hover .roll__face,
+  a:hover > .roll .roll__face { transform: none; }
+  a:hover > .roll .roll__face { color: var(--accent); }
+}
+
+/* ============================================================
    FOOTER
    ============================================================ */
 .footer {
-  padding-block: 2.5rem;
+  position: relative;
+  margin-top: var(--section-y);
+  padding-block: clamp(2.5rem, 6vw, 4rem) 2rem;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.footer__glow {
+  position: absolute;
+  top: -55%;
+  left: -8%;
+  width: min(60vw, 620px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--blob-2), transparent 66%);
+  filter: blur(70px);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.footer__inner {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+}
+
+.footer__brand,
+.footer__mail {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.footer__brand { font-size: clamp(1.5rem, 3.5vw, 2.25rem); }
+
+.footer__mail {
+  font-size: clamp(1.05rem, 2.4vw, 1.6rem);
+  /* Long address, narrow phones: allow it to wrap between characters. */
+  max-width: 100%;
+}
+
+.footer__meta {
+  position: relative;
+  margin-top: clamp(2rem, 5vw, 3rem);
+  padding-top: 1.5rem;
   border-top: 1px solid var(--line);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.75rem 1rem;
   font-family: var(--font-mono);
   font-size: var(--step--1);
   color: var(--ink-faint);

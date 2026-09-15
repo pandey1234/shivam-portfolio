@@ -11,6 +11,7 @@ import Career from './components/Career'
 import Projects from './components/Projects'
 import Skills from './components/Skills'
 import Contact from './components/Contact'
+import Footer from './components/Footer'
 
 export default function App() {
   const [ready, setReady] = useState(false)
@@ -35,10 +36,7 @@ export default function App() {
         <Contact />
       </main>
 
-      <footer className="footer shell">
-        <span>© {new Date().getFullYear()} Shivam Pandey</span>
-        <span>Built with React, GSAP &amp; too much coffee</span>
-      </footer>
+      <Footer />
     </>
   )
 }

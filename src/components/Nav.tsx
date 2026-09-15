@@ -32,7 +32,7 @@ export default function Nav() {
     <header className="nav" ref={nav}>
       <div className="shell nav__inner">
         <a href="#top" className="nav__mark">
-          Shivam<span>.</span>
+          shivam<span>.</span>dev
         </a>
 
         <div className="nav__right">
