@@ -6,7 +6,7 @@ export const profile = {
     'Backend developer specialising in secure authentication, multi-tenant architecture and the kind of infrastructure that quietly holds everything together. Currently building internal platforms at EPIC Investment Partners.',
   email: 'shivaypandey122@gmail.com',
   phone: '+91 6388022458',
-  location: 'Ghaziabad, Uttar Pradesh, India',
+  location: 'Noida, India',
   github: 'https://github.com/pandey1234',
   linkedin: 'https://linkedin.com/in/pandey1234',
 }

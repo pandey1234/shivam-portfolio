@@ -321,36 +321,69 @@ ul { list-style: none; }
   place-items: center;
 }
 
-.preloader__inner {
-  width: min(88vw, var(--maxw));
-  padding-inline: var(--gutter);
+/* Gradient hairline border: the outer element is the gradient, the inner
+   panel covers all but a 2px rim of it. */
+.loadpill {
+  position: relative;
+  padding: 2px;
+  border-radius: 100px;
+  background: linear-gradient(
+    115deg,
+    var(--violet) 0%,
+    rgba(255, 255, 255, 0.22) 32%,
+    rgba(255, 255, 255, 0.08) 60%,
+    rgba(255, 255, 255, 0.16) 100%
+  );
+  /* Mostly a neutral drop shadow; the violet is a tight spill off the rim
+     rather than a halo around the whole pill. */
+  box-shadow: 0 16px 40px rgba(10, 6, 24, 0.3), 0 0 30px -20px var(--violet);
+}
+
+.loadpill__inner {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 2rem;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2rem);
+  padding: clamp(0.85rem, 2vw, 1.15rem) clamp(1.4rem, 3.5vw, 2.1rem);
+  border-radius: inherit;
+  background: #0c0a11;
+  color: #f4f2f8;
 }
 
-.preloader__name {
+.loadpill__label {
   font-family: var(--font-display);
-  font-size: var(--step-2);
-  font-weight: 600;
-  letter-spacing: -0.025em;
+  font-weight: 700;
+  font-size: var(--step-0);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
-.preloader__count {
+.loadpill__pct {
   font-family: var(--font-mono);
-  font-size: var(--step-2);
-  color: var(--accent);
+  font-size: var(--step-0);
+  color: rgba(244, 242, 248, 0.6);
   font-variant-numeric: tabular-nums;
+  /* Fixed width so the pill doesn't resize as digits are added. */
+  min-width: 4ch;
+  text-align: right;
 }
 
-.preloader__bar {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 2px;
-  width: 0%;
-  background: linear-gradient(90deg, var(--accent), var(--violet), var(--pink));
+.loadpill__track {
+  display: block;
+  width: clamp(28px, 6vw, 40px);
+  height: 16px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+}
+
+.loadpill__fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--violet), #f4f2f8);
+  transform: scaleX(0);
+  transform-origin: left center;
 }
 
 /* ============================================================

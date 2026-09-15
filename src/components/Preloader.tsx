@@ -5,17 +5,18 @@ import { prefersReducedMotion } from '../lib/motion'
 type Props = { onDone: () => void }
 
 /**
- * Counts 0 -> 100 behind a progress bar, then wipes upward to reveal the page.
- * onDone fires before the wipe finishes so the hero animation overlaps the
- * exit rather than waiting for it.
+ * A centred loading pill that counts 0 -> 100 with a filling bar, then wipes
+ * upward to reveal the page. onDone fires before the wipe finishes so the
+ * hero animation overlaps the exit rather than waiting for it.
  */
 export default function Preloader({ onDone }: Props) {
   const root = useRef<HTMLDivElement>(null)
+  const pill = useRef<HTMLDivElement>(null)
   const count = useRef<HTMLSpanElement>(null)
-  const bar = useRef<HTMLDivElement>(null)
+  const fill = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
-    // Reduced motion: skip the whole sequence and show the page immediately.
+    // Reduced motion: skip the sequence and show the page immediately.
     if (prefersReducedMotion()) {
       if (root.current) root.current.style.display = 'none'
       onDone()
@@ -25,20 +26,26 @@ export default function Preloader({ onDone }: Props) {
     const counter = { value: 0 }
     const tl = gsap.timeline()
 
-    tl.to(counter, {
-      value: 100,
-      duration: 1.6,
-      ease: 'power2.inOut',
-      onUpdate: () => {
-        if (count.current) {
-          count.current.textContent = String(Math.round(counter.value)).padStart(3, '0')
-        }
-      },
-    })
-      .to(bar.current, { width: '100%', duration: 1.6, ease: 'power2.inOut' }, 0)
-      .to({}, { duration: 0.15 })
+    tl.from(pill.current, { scale: 0.9, opacity: 0, duration: 0.5, ease: 'power3.out' })
+      .to(
+        counter,
+        {
+          value: 100,
+          duration: 1.7,
+          ease: 'power2.inOut',
+          onUpdate: () => {
+            const v = Math.round(counter.value)
+            if (count.current) count.current.textContent = `${v}%`
+            pill.current?.setAttribute('aria-valuenow', String(v))
+          },
+        },
+        '-=0.2',
+      )
+      .to(fill.current, { scaleX: 1, duration: 1.7, ease: 'power2.inOut' }, '<')
+      .to({}, { duration: 0.2 })
       .add(onDone)
-      .to(root.current, { yPercent: -100, duration: 0.9, ease: 'power3.inOut' })
+      .to(pill.current, { scale: 0.94, opacity: 0, duration: 0.4, ease: 'power2.in' })
+      .to(root.current, { yPercent: -100, duration: 0.9, ease: 'power3.inOut' }, '-=0.15')
       .set(root.current, { display: 'none' })
 
     return () => {
@@ -48,13 +55,25 @@ export default function Preloader({ onDone }: Props) {
 
   return (
     <div className="preloader" ref={root}>
-      <div className="preloader__inner">
-        <span className="preloader__name">Shivam Pandey</span>
-        <span className="preloader__count" ref={count}>
-          000
-        </span>
+      <div
+        className="loadpill"
+        ref={pill}
+        role="progressbar"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={0}
+        aria-label="Loading"
+      >
+        <div className="loadpill__inner">
+          <span className="loadpill__label">Loading</span>
+          <span className="loadpill__pct" ref={count}>
+            0%
+          </span>
+          <span className="loadpill__track">
+            <span className="loadpill__fill" ref={fill} />
+          </span>
+        </div>
       </div>
-      <div className="preloader__bar" ref={bar} />
     </div>
   )
 }

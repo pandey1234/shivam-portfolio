@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { prefersReducedMotion } from '../lib/motion'
+import { profile } from '../data/content'
 
 type Props = { ready: boolean }
 
@@ -101,7 +102,7 @@ export default function Hero({ ready }: Props) {
             </div>
             <span className="avatar__chip">
               <span className="hero__dot" aria-hidden="true" />
-              Ghaziabad, India
+              {profile.location}
             </span>
           </div>
 
