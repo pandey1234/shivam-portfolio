@@ -6,9 +6,9 @@ My personal portfolio site. Built from scratch.
 
 ## Tech Stack
 
-React • TypeScript • Vite • GSAP
+React • TypeScript • Vite • GSAP 
 
-## Running Locally
+##  For Running Locally
 
 ```bash
 npm install
